@@ -1,0 +1,204 @@
+# Modeling {.unnumbered}
+
+::: panel-tabset
+
+### Load Libraries
+```{r}
+#| eval: false
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+### Create test dataset
+
+```{r}
+#| eval: false
+# Create a sequence of datetime values at 1-hour intervals for four consecutive days
+datetimes <- seq(
+  from = as.POSIXct("2025-05-01 00:00:00"),
+  to = as.POSIXct("2025-05-04 23:00:00"),
+  by = "hour"
+)
+
+# Create light (PAR) daily pattern (24 values)
+daily_pattern <- c(
+  0, 0, 0, 0, 0, 20, 100, 300, 600, 900, 1300, 1500,
+  1500, 1300, 900, 600, 300, 100, 20, 0, 0, 0, 0, 0
+)
+
+# Repeat the pattern for each day (4 days)
+PAR_values <- rep(daily_pattern, times = 4)
+
+# Join datetimes and PAR_values into a dataframe
+df <- data.frame(
+  DateTime = datetimes,
+  PAR = PAR_values
+)
+```
+
+
+### Calculate NPP & GPP
+
+```{r}
+#| eval: false
+# Assume GPP is related to PAR with a Michaelis Menten type equation
+# The parameters are:
+
+kPAR=500
+GPPmax=2
+
+df <- data.frame(
+  DateTime = datetimes,
+  PAR = PAR_values
+) %>%
+  mutate(GPP = GPPmax*PAR/(kPAR+PAR))
+
+# Assume ER constant -0.54 
+ER = -0.54
+
+df <- df %>%
+  mutate(ER = ER)
+
+# calculate NEP = GPP + ER (ER negative number, as ER consumes O2)
+df <- df %>%
+  mutate(NEP = GPP+ER)
+```
+
+:::
+
+## Calculations
+
+::: panel-tabset
+### Carbon and oxygen concentrations over time
+
+```{r}
+#| eval: false
+# assume normal atmospheric pressure (760 mm Hg = 1013 mbar or hPa) and
+# constant temperature at 20°C, so oxygen saturation concentration is
+# Cs=9.59 g O2 m-3 or mg O2 L-1.
+
+Cs = 9.59
+
+# Assume gas transfer velocity equivalent to gas exchange coefficient (h-1)
+# with depth = 1m
+
+k = 0.1 
+
+# Now calculated changes in C, oxygen concentration over time
+# seed value C0 for the first row
+
+C0 = 9.0
+
+# Create new column for C with NA values
+df$Ct <- NA
+# set first row equal the seed value
+df$Ct[1] <- C0
+
+# Loop through rows to calculate C recursively
+for (i in 2:nrow(df)) {
+  df$Ct[i] <- (k * Cs + df$NEP[i] + df$C[i - 1]) / (1 + k)
+}
+
+
+# Calculate flux of O2 at the water - air interface
+
+df <- df %>%
+  mutate(F = k*(Cs-Ct))
+
+# View the first few rows
+head(df)
+
+# Plot C
+ggplot(df, aes(x = DateTime, y = Ct)) +
+  geom_line(size=1.5) + 
+  labs(x = "Time",
+       y = "Ct") +
+  theme_minimal()
+```
+
+
+### Plotting
+
+```{r}
+#| eval: false
+
+# Constants
+Cs <- 9.59
+ER <- -0.54
+GPPmax <- 2
+kPAR <- 500
+C0 <- 9.0
+k_values <- c(0.1, 0.5, 1, 5)
+
+# Create datetime and PAR
+datetimes <- seq(
+  from = as.POSIXct("2025-05-01 00:00:00", tz = "UTC"),
+  to = as.POSIXct("2025-05-04 23:00:00", tz = "UTC"),
+  by = "hour"
+)
+
+daily_pattern <- c(
+  0, 0, 0, 0, 0, 20, 100, 300, 600, 900, 1300, 1500,
+  1500, 1300, 900, 600, 300, 100, 20, 0, 0, 0, 0, 0
+)
+
+PAR_values <- rep(daily_pattern, times = 4)
+
+# Base dataframe
+base_df <- data.frame(
+  DateTime = datetimes,
+  PAR = PAR_values
+) %>%
+  mutate(
+    GPP = GPPmax * PAR / (kPAR + PAR),
+    ER = ER,
+    NEP = GPP + ER
+  )
+
+# Function to compute Ct for a given k
+compute_Ct <- function(df, k, C0, Cs) {
+  Ct <- numeric(nrow(df))
+  Ct[1] <- C0
+  for (i in 2:nrow(df)) {
+    Ct[i] <- (k * Cs + df$NEP[i] + Ct[i - 1]) / (1 + k)
+  }
+  return(Ct)
+}
+
+# Create a long-format dataframe with Ct for each k
+df_all <- bind_rows(
+  lapply(k_values, function(k) {
+    df_k <- base_df
+    df_k$Ct <- compute_Ct(df_k, k, C0, Cs)
+    df_k$k <- as.factor(k)
+    df_k
+  })
+)
+
+# Plot
+ggplot(df_all, aes(x = DateTime, y = Ct, color = k)) +
+  geom_line(size = 1.2) +
+  labs(
+    title = "Ct over Time for Different k Values",
+    y = "Ct (Oxygen Concentration)",
+    color = "k value"
+  ) 
+# note influence of initial value at start of first day
+# plot without first day, two days are enough
+ggplot(df_all, aes(x = DateTime, y = Ct, color = k)) +
+  geom_line(size = 1.2) +
+  labs(
+    title = "Ct over Time for Different k Values",
+    y = "Ct (Oxygen Concentration)",
+    color = "k value"
+  ) +
+scale_x_datetime(
+  limits = as.POSIXct(c("2025-05-02", "2025-05-04")),
+  date_breaks = "1 day",
+  date_labels = "%d %b"
+) 
+```
+
+What do you observe ?

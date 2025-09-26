@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "BREATHE - Monitoring river metabolism to assess ecosystem services",
+    "section": "",
+    "text": "BREATHE.."
+  },
+  {
+    "objectID": "book_introduction.html#instruments",
+    "href": "book_introduction.html#instruments",
+    "title": "Introduction",
+    "section": "Instruments",
+    "text": "Instruments\n\neg 1eg 2eg 3eg 4"
+  },
+  {
+    "objectID": "book_modelling.html",
+    "href": "book_modelling.html",
+    "title": "Modeling",
+    "section": "",
+    "text": "Load Libraries\nCreate test dataset\nCalculate NPP & GPP\n\n\n\n\nlibrary(tidyverse)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(tidyr)\n\n\n\n\n# Create a sequence of datetime values at 1-hour intervals for four consecutive days\ndatetimes <- seq(\n  from = as.POSIXct(\"2025-05-01 00:00:00\"),\n  to = as.POSIXct(\"2025-05-04 23:00:00\"),\n  by = \"hour\"\n)\n\n# Create light (PAR) daily pattern (24 values)\ndaily_pattern <- c(\n  0, 0, 0, 0, 0, 20, 100, 300, 600, 900, 1300, 1500,\n  1500, 1300, 900, 600, 300, 100, 20, 0, 0, 0, 0, 0\n)\n\n# Repeat the pattern for each day (4 days)\nPAR_values <- rep(daily_pattern, times = 4)\n\n# Join datetimes and PAR_values into a dataframe\ndf <- data.frame(\n  DateTime = datetimes,\n  PAR = PAR_values\n)\n\n\n\n\n# Assume GPP is related to PAR with a Michaelis Menten type equation\n# The parameters are:\n\nkPAR=500\nGPPmax=2\n\ndf <- data.frame(\n  DateTime = datetimes,\n  PAR = PAR_values\n) %>%\n  mutate(GPP = GPPmax*PAR/(kPAR+PAR))\n\n# Assume ER constant -0.54 \nER = -0.54\n\ndf <- df %>%\n  mutate(ER = ER)\n\n# calculate NEP = GPP + ER (ER negative number, as ER consumes O2)\ndf <- df %>%\n  mutate(NEP = GPP+ER)"
+  },
+  {
+    "objectID": "book_modelling.html#calculations",
+    "href": "book_modelling.html#calculations",
+    "title": "Modeling",
+    "section": "Calculations",
+    "text": "Calculations\n::: panel-tabset ### Carbon and oxygen concentrations over time\n\n# assume normal atmospheric pressure (760 mm Hg = 1013 mbar or hPa) and\n# constant temperature at 20°C, so oxygen saturation concentration is\n# Cs=9.59 g O2 m-3 or mg O2 L-1.\n\nCs = 9.59\n\n# Assume gas transfer velocity equivalent to gas exchange coefficient (h-1)\n# with depth = 1m\n\nk = 0.1 \n\n# Now calculated changes in C, oxygen concentration over time\n# seed value C0 for the first row\n\nC0 = 9.0\n\n# Create new column for C with NA values\ndf$Ct <- NA\n# set first row equal the seed value\ndf$Ct[1] <- C0\n\n# Loop through rows to calculate C recursively\nfor (i in 2:nrow(df)) {\n  df$Ct[i] <- (k * Cs + df$NEP[i] + df$C[i - 1]) / (1 + k)\n}\n\n\n# Calculate flux of O2 at the water - air interface\n\ndf <- df %>%\n  mutate(F = k*(Cs-Ct))\n\n# View the first few rows\nhead(df)\n\n# Plot C\nggplot(df, aes(x = DateTime, y = Ct)) +\n  geom_line(size=1.5) + \n  labs(x = \"Time\",\n       y = \"Ct\") +\n  theme_minimal()\n\nPlotting\n\n# Constants\nCs <- 9.59\nER <- -0.54\nGPPmax <- 2\nkPAR <- 500\nC0 <- 9.0\nk_values <- c(0.1, 0.5, 1, 5)\n\n# Create datetime and PAR\ndatetimes <- seq(\n  from = as.POSIXct(\"2025-05-01 00:00:00\", tz = \"UTC\"),\n  to = as.POSIXct(\"2025-05-04 23:00:00\", tz = \"UTC\"),\n  by = \"hour\"\n)\n\ndaily_pattern <- c(\n  0, 0, 0, 0, 0, 20, 100, 300, 600, 900, 1300, 1500,\n  1500, 1300, 900, 600, 300, 100, 20, 0, 0, 0, 0, 0\n)\n\nPAR_values <- rep(daily_pattern, times = 4)\n\n# Base dataframe\nbase_df <- data.frame(\n  DateTime = datetimes,\n  PAR = PAR_values\n) %>%\n  mutate(\n    GPP = GPPmax * PAR / (kPAR + PAR),\n    ER = ER,\n    NEP = GPP + ER\n  )\n\n# Function to compute Ct for a given k\ncompute_Ct <- function(df, k, C0, Cs) {\n  Ct <- numeric(nrow(df))\n  Ct[1] <- C0\n  for (i in 2:nrow(df)) {\n    Ct[i] <- (k * Cs + df$NEP[i] + Ct[i - 1]) / (1 + k)\n  }\n  return(Ct)\n}\n\n# Create a long-format dataframe with Ct for each k\ndf_all <- bind_rows(\n  lapply(k_values, function(k) {\n    df_k <- base_df\n    df_k$Ct <- compute_Ct(df_k, k, C0, Cs)\n    df_k$k <- as.factor(k)\n    df_k\n  })\n)\n\n# Plot\nggplot(df_all, aes(x = DateTime, y = Ct, color = k)) +\n  geom_line(size = 1.2) +\n  labs(\n    title = \"Ct over Time for Different k Values\",\n    y = \"Ct (Oxygen Concentration)\",\n    color = \"k value\"\n  ) \n# note influence of initial value at start of first day\n# plot without first day, two days are enough\nggplot(df_all, aes(x = DateTime, y = Ct, color = k)) +\n  geom_line(size = 1.2) +\n  labs(\n    title = \"Ct over Time for Different k Values\",\n    y = \"Ct (Oxygen Concentration)\",\n    color = \"k value\"\n  ) +\nscale_x_datetime(\n  limits = as.POSIXct(c(\"2025-05-02\", \"2025-05-04\")),\n  date_breaks = \"1 day\",\n  date_labels = \"%d %b\"\n) \n\nWhat do you observe ?"
+  }
+]

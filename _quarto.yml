@@ -1,0 +1,18 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "BREATHE - Monitoring river metabolism to assess ecosystem services"
+  date: "September 2025"
+  chapters:
+    - index.qmd
+    - book_introduction.qmd
+    - book_collection.qmd
+    - book_integration.qmd
+    - book_modelling.qmd
+
+format:
+  html:
+    theme: cosmo
+    code-link: true
