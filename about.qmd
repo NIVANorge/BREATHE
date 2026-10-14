@@ -1,0 +1,61 @@
+---
+title: "About"
+about:
+  template: trestles
+  image: logo.png
+  links:
+    - icon: linkedin
+      text: linkedin
+      href: https://www.linkedin.com/company/146682632/admin/notifications/all/
+    - icon: website
+      text: Water4All
+      href: https://www.water4all-partnership.eu/project/breathe
+---
+
+## Background
+
+Current indicators used in national river health assessment systems (e.g. EU
+Water Framework Directive) do not reflect well biodiversity, aquatic ecosystem
+functioning and services as needed for new and proposed policies. Progress
+in sensor technology over the last 20 years has allowed the continuous
+monitoring of dissolved oxygen and river metabolism (photosynthesis,
+respiration, metabolic balance) at unprecedented spatio-temporal scale and
+resolution.
+
+BREATHE’s main objective is to co-design an international sensor-based
+River Observation System (RIOS) including dissolved oxygen and whole river
+metabolism to quantify aquatic ecosystem services such as climate regulation,
+water purification, provisioning fisheries for the implementation of European
+and global policies (EU 2030 Biodiversity Strategy, European Green Deal
+net zero greenhouse gas emissions by 2050, United Nations Sustainable
+Development Goals – notably Water and Sanitation for all.
+
+BREATHE will reach this goal by engaging with stakeholders to: first, co-design
+a workflow from data collection to storage, integration and modelling, and
+second, co-construct case studies to demonstrate how the workflow may be
+applied at the local scale and integrated internationally.
+
+The case studies are including key environmental issues in six countries:
+
+- forest restoration (Brazil)
+
+- water scarcity (Spain)
+
+- multiple stressors (Switzerland)
+
+- urban anoxia (United Kingdom)
+
+- water regulation (Norway)
+
+- peatland restoration (Sweden)
+
+BREATHE will not only identify commonalities among regions, sharing
+solutions to barriers of implementation, but also focus on region-specific
+needs in aquatic ecosystem services and policies. Patterns, processes and
+experiences from low latitude might become future scenarios for higher
+latitudes.
+
+BREATHE will provide guidance documents to optimise the development of
+monitoring networks, harmonise data collection and integration, and the
+modelling of the effect of drivers or remediation actions (restoration) on river
+ecosystem services.

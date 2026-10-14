@@ -1,0 +1,49 @@
+project:
+  type: website
+
+website:
+  title: "BREATHE"
+  navbar:
+    logo: "logo.png"
+    left:
+      - href: index.qmd
+        text: Home
+      - casestudies.qmd
+      - shiny.qmd
+      - href: methods/index.qmd
+        text: Methods
+
+    right:
+      - dissemination.qmd
+      - news.qmd
+
+    tools:
+      - icon: linkedin
+        href: https://www.linkedin.com/company/146682632/admin/dashboard/
+      - icon: github
+        menu:
+          - text: Source Code
+            href:  https://github.com/NIVANorge/BREATHE_website
+          - text: Report a Bug
+            href:  https://bugs.com
+
+  sidebar:
+  - id: methods
+    title: "Methods"
+    contents:
+      - methods/index.qmd
+      - methods/introduction.qmd
+      - methods/collection.qmd
+      - methods/integration.qmd
+      - methods/modelling.qmd
+        
+format:
+  html:
+    theme:
+      - flatly
+      - brand
+    css: styles.css
+    toc: true
+
+editor: visual
+
