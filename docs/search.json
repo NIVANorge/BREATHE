@@ -1,0 +1,145 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Monitoring Dissolved Oxygen",
+    "section": "",
+    "text": "BREATHE is a 3 year (2025-2028) Water4All project developing innovative, sensor-based approaches to monitor river health and ecosystem services. By using continuous dissolved oxygen measurements and river metabolism indicators, the project aims to provide a new generation of tools for assessing ecosystem functioning, supporting sustainable water management, and informing environmental policy."
+  },
+  {
+    "objectID": "index.html#about",
+    "href": "index.html#about",
+    "title": "Monitoring Dissolved Oxygen",
+    "section": "",
+    "text": "BREATHE is a 3 year (2025-2028) Water4All project developing innovative, sensor-based approaches to monitor river health and ecosystem services. By using continuous dissolved oxygen measurements and river metabolism indicators, the project aims to provide a new generation of tools for assessing ecosystem functioning, supporting sustainable water management, and informing environmental policy."
+  },
+  {
+    "objectID": "index.html#background",
+    "href": "index.html#background",
+    "title": "Monitoring Dissolved Oxygen",
+    "section": "Background",
+    "text": "Background\nCurrent indicators used in national river health assessment systems (e.g. EU Water Framework Directive) do not reflect well biodiversity, aquatic ecosystem functioning and services as needed for new and proposed policies. Progress in sensor technology over the last 20 years has allowed the continuous monitoring of dissolved oxygen and river metabolism (photosynthesis, respiration, metabolic balance) at unprecedented spatio-temporal scale and resolution.\nBREATHE’s main objective is to co-design an international sensor-based River Observation System (RIOS) including dissolved oxygen and whole river metabolism to quantify aquatic ecosystem services such as climate regulation, water purification, provisioning fisheries for the implementation of European and global policies (EU 2030 Biodiversity Strategy, European Green Deal net zero greenhouse gas emissions by 2050, United Nations Sustainable Development Goals – notably Water and Sanitation for all.\nBREATHE will reach this goal by engaging with stakeholders to: first, co-design a workflow from data collection to storage, integration and modelling, and second, co-construct case studies to demonstrate how the workflow may be applied at the local scale and integrated internationally.\nThe case studies are including key environmental issues in six countries:\n\nForest restoration (Brazil)\nWater scarcity (Spain)\nMultiple stressors (Switzerland)\nUrban anoxia (United Kingdom)\nWater regulation (Norway)\nPeatland restoration (Sweden)\n\nBREATHE will not only identify commonalities among regions, sharing solutions to barriers of implementation, but also focus on region-specific needs in aquatic ecosystem services and policies. Patterns, processes and experiences from low latitude might become future scenarios for higher latitudes.\nBREATHE will provide guidance documents to optimise the development of monitoring networks, harmonise data collection and integration, and the modelling of the effect of drivers or remediation actions (restoration) on river ecosystem services."
+  },
+  {
+    "objectID": "methods/modelling.html",
+    "href": "methods/modelling.html",
+    "title": "Modeling",
+    "section": "",
+    "text": "Create test datasetCalculate NPP & GPP\n\n\n\n# Create a sequence of datetime values at 1-hour intervals for four consecutive days\ndatetimes &lt;- seq(\n  from = as.POSIXct(\"2025-05-01 00:00:00\"),\n  to = as.POSIXct(\"2025-05-04 23:00:00\"),\n  by = \"hour\"\n)\n\n# Create light (PAR) daily pattern (24 values)\ndaily_pattern &lt;- c(\n  0, 0, 0, 0, 0, 20, 100, 300, 600, 900, 1300, 1500,\n  1500, 1300, 900, 600, 300, 100, 20, 0, 0, 0, 0, 0\n)\n\n# Repeat the pattern for each day (4 days)\nPAR_values &lt;- rep(daily_pattern, times = 4)\n\n# Join datetimes and PAR_values into a dataframe\ndf &lt;- data.frame(\n  DateTime = datetimes,\n  PAR = PAR_values\n)\n\n\n\n\n# Assume GPP is related to PAR with a Michaelis Menten type equation\n# The parameters are:\n\nkPAR=500\nGPPmax=2\n\ndf &lt;- data.frame(\n  DateTime = datetimes,\n  PAR = PAR_values\n) %&gt;%\n  mutate(GPP = GPPmax*PAR/(kPAR+PAR))\n\n# Assume ER constant -0.54 \nER = -0.54\n\ndf &lt;- df %&gt;%\n  mutate(ER = ER)\n\n# calculate NEP = GPP + ER (ER negative number, as ER consumes O2)\ndf &lt;- df %&gt;%\n  mutate(NEP = GPP+ER)\n\n\n\n\n\n\n\nCarbon and oxygen concentrations over timePlotting\n\n\n\n# assume normal atmospheric pressure (760 mm Hg = 1013 mbar or hPa) and\n# constant temperature at 20°C, so oxygen saturation concentration is\n# Cs=9.59 g O2 m-3 or mg O2 L-1.\n\nCs = 9.59\n\n# Assume gas transfer velocity equivalent to gas exchange coefficient (h-1)\n# with depth = 1m\n\nk = 0.1 \n\n# Now calculated changes in C, oxygen concentration over time\n# seed value C0 for the first row\n\nC0 = 9.0\n\n# Create new column for C with NA values\ndf$Ct &lt;- NA\n# set first row equal the seed value\ndf$Ct[1] &lt;- C0\n\n# Loop through rows to calculate C recursively\nfor (i in 2:nrow(df)) {\n  df$Ct[i] &lt;- (k * Cs + df$NEP[i] + df$C[i - 1]) / (1 + k)\n}\n\n\n# Calculate flux of O2 at the water - air interface\n\ndf &lt;- df %&gt;%\n  mutate(F = k*(Cs-Ct))\n\n# View the first few rows\nhead(df)\n\n# Plot C\nggplot(df, aes(x = DateTime, y = Ct)) +\n  geom_line(size=1.5) + \n  labs(x = \"Time\",\n       y = \"Ct\") +\n  theme_minimal()\n\n\n\n\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(tidyr)\n\n# Constants\nCs &lt;- 9.59\nER &lt;- -0.54\nGPPmax &lt;- 2\nkPAR &lt;- 500\nC0 &lt;- 9.0\nk_values &lt;- c(0.1, 0.5, 1, 5)\n\n# Create datetime and PAR\ndatetimes &lt;- seq(\n  from = as.POSIXct(\"2025-05-01 00:00:00\", tz = \"UTC\"),\n  to = as.POSIXct(\"2025-05-04 23:00:00\", tz = \"UTC\"),\n  by = \"hour\"\n)\n\ndaily_pattern &lt;- c(\n  0, 0, 0, 0, 0, 20, 100, 300, 600, 900, 1300, 1500,\n  1500, 1300, 900, 600, 300, 100, 20, 0, 0, 0, 0, 0\n)\n\nPAR_values &lt;- rep(daily_pattern, times = 4)\n\n# Base dataframe\nbase_df &lt;- data.frame(\n  DateTime = datetimes,\n  PAR = PAR_values\n) %&gt;%\n  mutate(\n    GPP = GPPmax * PAR / (kPAR + PAR),\n    ER = ER,\n    NEP = GPP + ER\n  )\n\n# Function to compute Ct for a given k\ncompute_Ct &lt;- function(df, k, C0, Cs) {\n  Ct &lt;- numeric(nrow(df))\n  Ct[1] &lt;- C0\n  for (i in 2:nrow(df)) {\n    Ct[i] &lt;- (k * Cs + df$NEP[i] + Ct[i - 1]) / (1 + k)\n  }\n  return(Ct)\n}\n\n# Create a long-format dataframe with Ct for each k\ndf_all &lt;- bind_rows(\n  lapply(k_values, function(k) {\n    df_k &lt;- base_df\n    df_k$Ct &lt;- compute_Ct(df_k, k, C0, Cs)\n    df_k$k &lt;- as.factor(k)\n    df_k\n  })\n)\n\n# Plot\nggplot(df_all, aes(x = DateTime, y = Ct, color = k)) +\n  geom_line(size = 1.2) +\n  labs(\n    title = \"Ct over Time for Different k Values\",\n    y = \"Ct (Oxygen Concentration)\",\n    color = \"k value\"\n  ) \n# note influence of initial value at start of first day\n# plot without first day, two days are enough\nggplot(df_all, aes(x = DateTime, y = Ct, color = k)) +\n  geom_line(size = 1.2) +\n  labs(\n    title = \"Ct over Time for Different k Values\",\n    y = \"Ct (Oxygen Concentration)\",\n    color = \"k value\"\n  ) +\nscale_x_datetime(\n  limits = as.POSIXct(c(\"2025-05-02\", \"2025-05-04\")),\n  date_breaks = \"1 day\",\n  date_labels = \"%d %b\"\n) \n\n# What do you observe ?",
+    "crumbs": [
+      "Methods",
+      "Modeling"
+    ]
+  },
+  {
+    "objectID": "methods/modelling.html#calculations",
+    "href": "methods/modelling.html#calculations",
+    "title": "Modeling",
+    "section": "",
+    "text": "Carbon and oxygen concentrations over timePlotting\n\n\n\n# assume normal atmospheric pressure (760 mm Hg = 1013 mbar or hPa) and\n# constant temperature at 20°C, so oxygen saturation concentration is\n# Cs=9.59 g O2 m-3 or mg O2 L-1.\n\nCs = 9.59\n\n# Assume gas transfer velocity equivalent to gas exchange coefficient (h-1)\n# with depth = 1m\n\nk = 0.1 \n\n# Now calculated changes in C, oxygen concentration over time\n# seed value C0 for the first row\n\nC0 = 9.0\n\n# Create new column for C with NA values\ndf$Ct &lt;- NA\n# set first row equal the seed value\ndf$Ct[1] &lt;- C0\n\n# Loop through rows to calculate C recursively\nfor (i in 2:nrow(df)) {\n  df$Ct[i] &lt;- (k * Cs + df$NEP[i] + df$C[i - 1]) / (1 + k)\n}\n\n\n# Calculate flux of O2 at the water - air interface\n\ndf &lt;- df %&gt;%\n  mutate(F = k*(Cs-Ct))\n\n# View the first few rows\nhead(df)\n\n# Plot C\nggplot(df, aes(x = DateTime, y = Ct)) +\n  geom_line(size=1.5) + \n  labs(x = \"Time\",\n       y = \"Ct\") +\n  theme_minimal()\n\n\n\n\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(tidyr)\n\n# Constants\nCs &lt;- 9.59\nER &lt;- -0.54\nGPPmax &lt;- 2\nkPAR &lt;- 500\nC0 &lt;- 9.0\nk_values &lt;- c(0.1, 0.5, 1, 5)\n\n# Create datetime and PAR\ndatetimes &lt;- seq(\n  from = as.POSIXct(\"2025-05-01 00:00:00\", tz = \"UTC\"),\n  to = as.POSIXct(\"2025-05-04 23:00:00\", tz = \"UTC\"),\n  by = \"hour\"\n)\n\ndaily_pattern &lt;- c(\n  0, 0, 0, 0, 0, 20, 100, 300, 600, 900, 1300, 1500,\n  1500, 1300, 900, 600, 300, 100, 20, 0, 0, 0, 0, 0\n)\n\nPAR_values &lt;- rep(daily_pattern, times = 4)\n\n# Base dataframe\nbase_df &lt;- data.frame(\n  DateTime = datetimes,\n  PAR = PAR_values\n) %&gt;%\n  mutate(\n    GPP = GPPmax * PAR / (kPAR + PAR),\n    ER = ER,\n    NEP = GPP + ER\n  )\n\n# Function to compute Ct for a given k\ncompute_Ct &lt;- function(df, k, C0, Cs) {\n  Ct &lt;- numeric(nrow(df))\n  Ct[1] &lt;- C0\n  for (i in 2:nrow(df)) {\n    Ct[i] &lt;- (k * Cs + df$NEP[i] + Ct[i - 1]) / (1 + k)\n  }\n  return(Ct)\n}\n\n# Create a long-format dataframe with Ct for each k\ndf_all &lt;- bind_rows(\n  lapply(k_values, function(k) {\n    df_k &lt;- base_df\n    df_k$Ct &lt;- compute_Ct(df_k, k, C0, Cs)\n    df_k$k &lt;- as.factor(k)\n    df_k\n  })\n)\n\n# Plot\nggplot(df_all, aes(x = DateTime, y = Ct, color = k)) +\n  geom_line(size = 1.2) +\n  labs(\n    title = \"Ct over Time for Different k Values\",\n    y = \"Ct (Oxygen Concentration)\",\n    color = \"k value\"\n  ) \n# note influence of initial value at start of first day\n# plot without first day, two days are enough\nggplot(df_all, aes(x = DateTime, y = Ct, color = k)) +\n  geom_line(size = 1.2) +\n  labs(\n    title = \"Ct over Time for Different k Values\",\n    y = \"Ct (Oxygen Concentration)\",\n    color = \"k value\"\n  ) +\nscale_x_datetime(\n  limits = as.POSIXct(c(\"2025-05-02\", \"2025-05-04\")),\n  date_breaks = \"1 day\",\n  date_labels = \"%d %b\"\n) \n\n# What do you observe ?",
+    "crumbs": [
+      "Methods",
+      "Modeling"
+    ]
+  },
+  {
+    "objectID": "methods/integration.html",
+    "href": "methods/integration.html",
+    "title": "Integration",
+    "section": "",
+    "text": "Integration",
+    "crumbs": [
+      "Methods",
+      "Integration"
+    ]
+  },
+  {
+    "objectID": "methods/collection.html",
+    "href": "methods/collection.html",
+    "title": "Data Collection",
+    "section": "",
+    "text": "Data Collection",
+    "crumbs": [
+      "Methods",
+      "Data Collection"
+    ]
+  },
+  {
+    "objectID": "casestudies.html#spain",
+    "href": "casestudies.html#spain",
+    "title": "Case Studies",
+    "section": "Spain",
+    "text": "Spain"
+  },
+  {
+    "objectID": "casestudies.html#switzerland",
+    "href": "casestudies.html#switzerland",
+    "title": "Case Studies",
+    "section": "Switzerland",
+    "text": "Switzerland"
+  },
+  {
+    "objectID": "casestudies.html#uk",
+    "href": "casestudies.html#uk",
+    "title": "Case Studies",
+    "section": "UK",
+    "text": "UK"
+  },
+  {
+    "objectID": "casestudies.html#norway",
+    "href": "casestudies.html#norway",
+    "title": "Case Studies",
+    "section": "Norway",
+    "text": "Norway"
+  },
+  {
+    "objectID": "casestudies.html#sweden",
+    "href": "casestudies.html#sweden",
+    "title": "Case Studies",
+    "section": "Sweden",
+    "text": "Sweden"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Current indicators used in national river health assessment systems (e.g. EU Water Framework Directive) do not reflect well biodiversity, aquatic ecosystem functioning and services as needed for new and proposed policies. Progress in sensor technology over the last 20 years has allowed the continuous monitoring of dissolved oxygen and river metabolism (photosynthesis, respiration, metabolic balance) at unprecedented spatio-temporal scale and resolution.\nBREATHE’s main objective is to co-design an international sensor-based River Observation System (RIOS) including dissolved oxygen and whole river metabolism to quantify aquatic ecosystem services such as climate regulation, water purification, provisioning fisheries for the implementation of European and global policies (EU 2030 Biodiversity Strategy, European Green Deal net zero greenhouse gas emissions by 2050, United Nations Sustainable Development Goals – notably Water and Sanitation for all.\nBREATHE will reach this goal by engaging with stakeholders to: first, co-design a workflow from data collection to storage, integration and modelling, and second, co-construct case studies to demonstrate how the workflow may be applied at the local scale and integrated internationally.\nThe case studies are including key environmental issues in six countries:\n\nforest restoration (Brazil)\nwater scarcity (Spain)\nmultiple stressors (Switzerland)\nurban anoxia (United Kingdom)\nwater regulation (Norway)\npeatland restoration (Sweden)\n\nBREATHE will not only identify commonalities among regions, sharing solutions to barriers of implementation, but also focus on region-specific needs in aquatic ecosystem services and policies. Patterns, processes and experiences from low latitude might become future scenarios for higher latitudes.\nBREATHE will provide guidance documents to optimise the development of monitoring networks, harmonise data collection and integration, and the modelling of the effect of drivers or remediation actions (restoration) on river ecosystem services."
+  },
+  {
+    "objectID": "about.html#background",
+    "href": "about.html#background",
+    "title": "About",
+    "section": "",
+    "text": "Current indicators used in national river health assessment systems (e.g. EU Water Framework Directive) do not reflect well biodiversity, aquatic ecosystem functioning and services as needed for new and proposed policies. Progress in sensor technology over the last 20 years has allowed the continuous monitoring of dissolved oxygen and river metabolism (photosynthesis, respiration, metabolic balance) at unprecedented spatio-temporal scale and resolution.\nBREATHE’s main objective is to co-design an international sensor-based River Observation System (RIOS) including dissolved oxygen and whole river metabolism to quantify aquatic ecosystem services such as climate regulation, water purification, provisioning fisheries for the implementation of European and global policies (EU 2030 Biodiversity Strategy, European Green Deal net zero greenhouse gas emissions by 2050, United Nations Sustainable Development Goals – notably Water and Sanitation for all.\nBREATHE will reach this goal by engaging with stakeholders to: first, co-design a workflow from data collection to storage, integration and modelling, and second, co-construct case studies to demonstrate how the workflow may be applied at the local scale and integrated internationally.\nThe case studies are including key environmental issues in six countries:\n\nforest restoration (Brazil)\nwater scarcity (Spain)\nmultiple stressors (Switzerland)\nurban anoxia (United Kingdom)\nwater regulation (Norway)\npeatland restoration (Sweden)\n\nBREATHE will not only identify commonalities among regions, sharing solutions to barriers of implementation, but also focus on region-specific needs in aquatic ecosystem services and policies. Patterns, processes and experiences from low latitude might become future scenarios for higher latitudes.\nBREATHE will provide guidance documents to optimise the development of monitoring networks, harmonise data collection and integration, and the modelling of the effect of drivers or remediation actions (restoration) on river ecosystem services."
+  },
+  {
+    "objectID": "dissemination.html#conference-abstracts",
+    "href": "dissemination.html#conference-abstracts",
+    "title": "Dissemination",
+    "section": "Conference Abstracts",
+    "text": "Conference Abstracts"
+  },
+  {
+    "objectID": "methods/introduction.html",
+    "href": "methods/introduction.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "eg 1eg 2eg 3eg 4",
+    "crumbs": [
+      "Methods",
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "methods/introduction.html#instruments",
+    "href": "methods/introduction.html#instruments",
+    "title": "Introduction",
+    "section": "",
+    "text": "eg 1eg 2eg 3eg 4",
+    "crumbs": [
+      "Methods",
+      "Introduction"
+    ]
+  }
+]
