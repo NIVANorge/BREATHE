@@ -33,10 +33,15 @@ website:
     title: "Methods"
     contents:
       - methods/index.qmd
-      - methods/introduction.qmd
-      - methods/collection.qmd
-      - methods/integration.qmd
-      - methods/modelling.qmd
+      - methods/0.introduction.qmd
+      - methods/1.study_design.qmd
+      - methods/2.instrument_selection.qmd
+      - methods/3.reach_characterisation.qmd
+      - methods/4.data_cleaning.qmd
+      - methods/5.simple_calculations.qmd
+      - methods/6.ecosystem_metabolism.qmd
+      - methods/7.building_on_metabolism.qmd
+      - methods/8.modelling_across_scales.qmd
         
 format:
   html:
