@@ -18,7 +18,7 @@
     "href": "index.html#background",
     "title": "Monitoring Dissolved Oxygen",
     "section": "Background",
-    "text": "Background\nCurrent indicators used in national river health assessment systems (e.g. EU Water Framework Directive) do not reflect well biodiversity, aquatic ecosystem functioning and services as needed for new and proposed policies. Progress in sensor technology over the last 20 years has allowed the continuous monitoring of dissolved oxygen and river metabolism (photosynthesis, respiration, metabolic balance) at unprecedented spatio-temporal scale and resolution.\nBREATHE’s main objective is to co-design an international sensor-based River Observation System (RIOS) including dissolved oxygen and whole river metabolism to quantify aquatic ecosystem services such as climate regulation, water purification, provisioning fisheries for the implementation of European and global policies (EU 2030 Biodiversity Strategy, European Green Deal net zero greenhouse gas emissions by 2050, United Nations Sustainable Development Goals – notably Water and Sanitation for all.\nBREATHE will reach this goal by engaging with stakeholders to: first, co-design a workflow from data collection to storage, integration and modelling, and second, co-construct case studies to demonstrate how the workflow may be applied at the local scale and integrated internationally.\nThe case studies are including key environmental issues in six countries:\n\nForest restoration (Brazil)\nWater scarcity (Spain)\nMultiple stressors (Switzerland)\nUrban anoxia (United Kingdom)\nWater regulation (Norway)\nPeatland restoration (Sweden)\n\nBREATHE will not only identify commonalities among regions, sharing solutions to barriers of implementation, but also focus on region-specific needs in aquatic ecosystem services and policies. Patterns, processes and experiences from low latitude might become future scenarios for higher latitudes.\nBREATHE will provide guidance documents to optimise the development of monitoring networks, harmonise data collection and integration, and the modelling of the effect of drivers or remediation actions (restoration) on river ecosystem services."
+    "text": "Background\nCurrent indicators used in national river health assessment systems (e.g. EU Water Framework Directive) do not reflect well biodiversity, aquatic ecosystem functioning and services as needed for new and proposed policies. Progress in sensor technology over the last 20 years has allowed the continuous monitoring of dissolved oxygen and river metabolism (photosynthesis, respiration, metabolic balance) at unprecedented spatio-temporal scale and resolution.\nBREATHE’s main objective is to co-design an international sensor-based River Observation System (RIOS) including dissolved oxygen and whole river metabolism to quantify aquatic ecosystem services such as climate regulation, water purification, provisioning fisheries for the implementation of European and global policies (EU 2030 Biodiversity Strategy, European Green Deal net zero greenhouse gas emissions by 2050, United Nations Sustainable Development Goals – notably Water and Sanitation for all.\nBREATHE will reach this goal by engaging with stakeholders to: first, co-design a workflow from data collection to storage, integration and modelling, and second, co-construct case studies to demonstrate how the workflow may be applied at the local scale and integrated internationally.\nThe case studies are including key environmental issues in six countries:\n\nForest restoration (Brazil)\nWater scarcity (Spain)\nMultiple stressors (Switzerland)\nUrban anoxia (United Kingdom)\nWater regulation (Norway)\nClimate change impacts (Sweden)\n\nBREATHE will not only identify commonalities among regions, sharing solutions to barriers of implementation, but also focus on region-specific needs in aquatic ecosystem services and policies. Patterns, processes and experiences from low latitude might become future scenarios for higher latitudes.\nBREATHE will provide guidance documents to optimise the development of monitoring networks, harmonise data collection and integration, and the modelling of the effect of drivers or remediation actions (restoration) on river ecosystem services."
   },
   {
     "objectID": "methods/modelling.html",
@@ -163,33 +163,34 @@
   {
     "objectID": "methods/3.reach_characterisation.html",
     "href": "methods/3.reach_characterisation.html",
-    "title": "Reach Characterisation",
+    "title": "Reach characterisation",
     "section": "",
-    "text": "Reach Characterisation",
+    "text": "Reach characterisation",
     "crumbs": [
-      "Reach Characterisation"
+      "Methods",
+      "Reach characterisation"
     ]
   },
   {
     "objectID": "methods/1.study_design.html",
     "href": "methods/1.study_design.html",
-    "title": "Study Design",
+    "title": "Study design",
     "section": "",
-    "text": "Study Design",
+    "text": "Study design",
     "crumbs": [
       "Methods",
-      "Study Design"
+      "Study design"
     ]
   },
   {
     "objectID": "methods/2.instrument_selection.html",
     "href": "methods/2.instrument_selection.html",
-    "title": "Instrument Selection",
+    "title": "Instrument selection",
     "section": "",
-    "text": "Instrument Selection",
+    "text": "Instrument selection",
     "crumbs": [
       "Methods",
-      "Instrument Selection"
+      "Instrument selection"
     ]
   },
   {
@@ -222,6 +223,46 @@
     "crumbs": [
       "Methods",
       "Modelling across scales"
+    ]
+  },
+  {
+    "objectID": "index.html#funding-and-acknowledgements",
+    "href": "index.html#funding-and-acknowledgements",
+    "title": "Monitoring Dissolved Oxygen",
+    "section": "Funding and Acknowledgements",
+    "text": "Funding and Acknowledgements\nThis project is funded through the European Union’s Horizon Europe Programme under the 2023 Joint Transnational Call of the European Partnership Water4All (Grant Agreement #101060874) and supported by national funding agencies in the participating countries including the Norwegian Research Council (RCN, 356999), Swedish Research Council for Environment, Agricultural Sciences and Spatial Planning (FORMAS, 2024-00996), Spanish Ministry of Science, Innovation and Universities and managed by the State Research Agency (PCI2025-163221), Engineering and Physical Sciences Research Council of UK Research and Innovation (EPSRC, UKRI EP/Z003474/1), Swiss National Science Foundation (SNSF, 223985), Fundação de Amparo à Pesquisa do Estado de Minas Gerais – (FAPEMIG, APQ-06893-24)."
+  },
+  {
+    "objectID": "casestudies/sweden.html",
+    "href": "casestudies/sweden.html",
+    "title": "Sweden",
+    "section": "",
+    "text": "The Arctic is warming twice as fast as the rest of the planet, driving rapid environmental change across the region. While changes in arctic terrestrial ecosystems are well documented through satellite imagery, the impacts of climate change on Arctic river ecosystems remain less understood. Assessing these impacts requires in-situ sensors to capture changes in river ecosystem processes over time and identify the environmental factors driving these changes.\nTo investigate how Arctic rivers respond to a changing climate, we established monitoring sites across a climate gradient spanning boreal forest, birch forest, and tundra-dominated rivers. These distinct vegetation zones are expected to shift in distribution and composition as temperatures rise. By monitoring river ecosystem processes across this gradient, we aim to identify how vegetation and associated environmental conditions shape river functioning. This approach will help us understand how Arctic rivers may respond to ongoing environmental change and improve predictions of their future responses to a warming climate.\n\n\n\n\n\n\n\n\n\n\n\n\n\nContact:\nRyan Sponseller, Umeå University\n📧 ryan.sponseller@umu.se\nKeridwen Whitmore, Umeå University\n📧 keridwen.whitmore@umu.se",
+    "crumbs": [
+      "Case Studies",
+      "Sweden"
+    ]
+  },
+  {
+    "objectID": "casestudies/sweden.html#climate-change-impacts-on-arctic-streams",
+    "href": "casestudies/sweden.html#climate-change-impacts-on-arctic-streams",
+    "title": "Sweden",
+    "section": "",
+    "text": "The Arctic is warming twice as fast as the rest of the planet, driving rapid environmental change across the region. While changes in arctic terrestrial ecosystems are well documented through satellite imagery, the impacts of climate change on Arctic river ecosystems remain less understood. Assessing these impacts requires in-situ sensors to capture changes in river ecosystem processes over time and identify the environmental factors driving these changes.\nTo investigate how Arctic rivers respond to a changing climate, we established monitoring sites across a climate gradient spanning boreal forest, birch forest, and tundra-dominated rivers. These distinct vegetation zones are expected to shift in distribution and composition as temperatures rise. By monitoring river ecosystem processes across this gradient, we aim to identify how vegetation and associated environmental conditions shape river functioning. This approach will help us understand how Arctic rivers may respond to ongoing environmental change and improve predictions of their future responses to a warming climate.\n\n\n\n\n\n\n\n\n\n\n\n\n\nContact:\nRyan Sponseller, Umeå University\n📧 ryan.sponseller@umu.se\nKeridwen Whitmore, Umeå University\n📧 keridwen.whitmore@umu.se",
+    "crumbs": [
+      "Case Studies",
+      "Sweden"
+    ]
+  },
+  {
+    "objectID": "casestudies/sweden.html#case-study-contact",
+    "href": "casestudies/sweden.html#case-study-contact",
+    "title": "Sweden",
+    "section": "Case Study Contact",
+    "text": "Case Study Contact\nContact:\nKeridwen Whitmore, Umeå University\n📧 keridwen.whitmore@umu.se\nRyan Sponseller, Umeå University\n📧 ryan.sponseller@umu.se",
+    "crumbs": [
+      "Case Studies",
+      "Sweden"
     ]
   }
 ]

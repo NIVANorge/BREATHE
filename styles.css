@@ -1,1 +1,15 @@
 /* css styles */
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  align-items: center;
+  justify-items: center;
+  margin-top: 1rem;
+}
+
+.logo-grid img {
+  max-height: 90px;
+  width: auto;
+}

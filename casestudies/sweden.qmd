@@ -8,6 +8,20 @@ The Arctic is warming twice as fast as the rest of the planet, driving rapid env
 
 To investigate how Arctic rivers respond to a changing climate, we established monitoring sites across a climate gradient spanning boreal forest, birch forest, and tundra-dominated rivers. These distinct vegetation zones are expected to shift in distribution and composition as temperatures rise. By monitoring river ecosystem processes across this gradient, we aim to identify how vegetation and associated environmental conditions shape river functioning. This approach will help us understand how Arctic rivers may respond to ongoing environmental change and improve predictions of their future responses to a warming climate.
 
-![](umea1.jpg){fig-align="center" width="75%"}
+![](images/umea1.jpg){fig-align="center"}
 
-![](umea2.png){fig-align="center" width="80%"}
+![](images/umea2.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+### Case Study Contact
+
+**Contact:**
+
+Ryan Sponseller, Umeå University\
+📧 ryan.sponseller\@umu.se
+
+Keridwen Whitmore, Umeå University\
+📧 keridwen.whitmore\@umu.se
+
+![](images/umea-university-seeklogo2.png){width="15%"} ![](images/CIRC_logo.png){width="20%"}

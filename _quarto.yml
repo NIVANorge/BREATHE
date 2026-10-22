@@ -9,7 +9,8 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - casestudies.qmd
+      - href: casestudies/index.qmd
+        text: Case Studies
       - shiny.qmd
       - href: methods/index.qmd
         text: Methods
@@ -42,7 +43,17 @@ website:
       - methods/6.ecosystem_metabolism.qmd
       - methods/7.building_on_metabolism.qmd
       - methods/8.modelling_across_scales.qmd
-        
+  - id: casestudies
+    title: "Case Studies"
+    contents:
+      - casestudies/index.qmd
+      - casestudies/brazil.qmd
+      - casestudies/norway.qmd
+      - casestudies/spain.qmd
+      - casestudies/sweden.qmd
+      - casestudies/switzerland.qmd
+      - casestudies/uk.qmd
+
 format:
   html:
     theme:

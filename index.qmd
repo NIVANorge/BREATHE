@@ -41,3 +41,11 @@ The case studies are including key environmental issues in six countries:
 BREATHE will not only identify commonalities among regions, sharing solutions to barriers of implementation, but also focus on region-specific needs in aquatic ecosystem services and policies. Patterns, processes and experiences from low latitude might become future scenarios for higher latitudes.
 
 BREATHE will provide guidance documents to optimise the development of monitoring networks, harmonise data collection and integration, and the modelling of the effect of drivers or remediation actions (restoration) on river ecosystem services.
+
+## Funding and Acknowledgements
+
+This project is funded through the European Union’s Horizon Europe Programme under the 2023 Joint Transnational Call of the European Partnership Water4All (Grant Agreement #101060874) and supported by national funding agencies in the participating countries including the Norwegian Research Council (RCN, 356999), Swedish Research Council for Environment, Agricultural Sciences and Spatial Planning (FORMAS, 2024-00996), Spanish Ministry of Science, Innovation and Universities and managed by the State Research Agency (PCI2025-163221), Engineering and Physical Sciences Research Council of UK Research and Innovation (EPSRC, UKRI EP/Z003474/1), Swiss National Science Foundation (SNSF, 223985), Fundação de Amparo à Pesquisa do Estado de Minas Gerais – (FAPEMIG, APQ-06893-24).
+
+::: logo-grid
+![Water4All](logos/Water4All.png){alt="Water4All" width="40%"} ![European Union](logos/cofunded_by_EU.png){alt="European Union" width="45%"} ![Research Council of Norway](logos/RCN.png){alt="Research Council of Norway" width="45%"} ![FORMAS](logos/FORMAS.png){alt="FORMAS" width="45%"} ![Swiss National Science Foundation](logos/SNSF.png){alt="Swiss National Science Foundation" width="45%"} ![UK Research and Innovation](logos/UKRI.png){alt="UK Research and Innovation" width="45%"} ![Agencia Estatal de Investigación](logos/AEI.png){alt="Agencia Estatal de Investigación" width="50%"} ![FAPEAM](logos/FAPEAM.png){alt="FAPEAM" width="40%"}
+:::
