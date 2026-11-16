@@ -3,3 +3,39 @@ title: "Switzerland"
 ---
 
 ## 
+
+**Switzerland Case Study**
+
+We focus on rivers exposed to multiple stressors: from climate driven hydrological shifts typical of glacier-fed catchments, to agricultural, anthropic and land use pressures in the downstream environments. Switzerland’s case studies provide a critical testbed for evaluating how river functioning responds to these combined impacts along the river continuum, and how sensor- based monitoring can support more resilient water management strategies. Our interest is to explore similarities and differences among metabolic cycles, and how each system responds to hydrological and biogeochemical stressors. 
+
+1.  **Saxon agricultural ditch** 
+
+RQ: How do groundwater supply, agricultural inputs, and water-level regulation interact to control metabolism and CO₂ emissions in an agricultural drainage channel? 
+
+The sensor station is located within an agricultural ditch originally dredged as part of a channel network designed to drain groundwater from the Rhône Valley and now primarily used for irrigation. Groundwater is thus the dominant water source, but the channel also receives urban and agricultural runoff. Consequently, the channel is generally characterized by low dissolved oxygen concentrations and high CO₂ levels. Hypoxic conditions, defined here as dissolved oxygen concentrations below 5 mg L⁻¹, occasionally occur during winter. In spring, however, the development of a well-established macrophyte community enhances photosynthetic oxygen production, raising dissolved oxygen concentrations to approximately 10 mg L⁻¹. 
+
+SENSOR PARAMETERS: O2, CO2, turbidity, CDOM, water depth, temperature, conductivity 
+
+WEEKLY GRAB SAMPLING: stable isotopes, DIC, DOC, nutrients, ions 
+
+2.  **Martigny urban river** 
+
+RQ: How do urban carbon inputs and upstream flow regulation control metabolism and CO2 emissions in an urban river? 
+
+We are monitoring the Drance river downstream Martigny urban area, just before its entrance in the Rhône. Our station is located at the closure of a 700 km2 river basin, with average annual discharge around 10 m3/s. At this site, we expect ecosystem functioning to reflect the combined effects of anthropogenic pollution and flow alteration, as the upstream catchment is influenced by multiple dams and water-intake structures. These effects may also interact with glacier-driven hydrological dynamics, given that approximately 10% of the catchment is glacierized. 
+
+SENSOR PARAMETERS: O2, CO2, turbidity, CDOM, water depth, temperature, conductivity 
+
+WEEKLY GRAB SAMPLING: stable isotopes, DIC, DOC, nutrients, ions 
+
+3.  **Valsorey glacier-fed stream network** 
+
+RQ: How do glacier type and proglacial landscape configuration regulate the spatial propagation of metabolic activity through a high-alpine stream network? 
+
+The first study site is the Valsorey glacier-fed stream network, that drains a high-altitude catchment, in which approximately 20% of the area is dominated by ice dynamics. This network originates from different glacier sources, i.e. clean ice glaciers and talus/rock glaciers, that control flow and turbidity dynamics across the year. Reaches fed by different types of glaciers strongly differ in turbidity and hydrologic deliveries, both in timing and magnitude. We currently monitor 11 sites spanning glacier floodplains and the catchment output, to assess how hydrologic variability and carbon delivery influence ecosystem functioning at different altitudes.  
+
+SENSOR PARAMETERS: O2, turbidity, CDOM, water depth, temperature, conductivity 
+
+WEEKLY GRAB SAMPLING: stable isotopes, DIC, DOC, nutrients, ions 
+
+**Overall RQ: How do hydrological and land-use shifts govern the transition of streams from passive carbon conveyors to metabolically active reactors across glacier-fed, urban dominated, and groundwater-fed agricultural ecosystems?** 
